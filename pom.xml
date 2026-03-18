@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><project>
+<?xml version="1.0" encoding="UTF-8"?><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>dk.sdu.cbse</groupId>
   <artifactId>AsteroidsFX</artifactId>
@@ -30,6 +30,7 @@
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
         <version> 3.5.0</version>
+        <inherited>false</inherited>
         <executions>
           <execution>
             <goals>
@@ -43,10 +44,8 @@
           <arguments>
             <argument>--module-path=mods-mvn</argument>
             <argument>--class-path=libs/*</argument>
-            <argument>-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,
-address=127.0.0.1:8000
-</argument>
-            <argument>--module=Core/dk.sdu.mmmi.cbse.main.Main</argument>
+            <argument>-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=127.0.0.1:8000</argument>
+            <argument>--module=Core/dk.sdu.cbse.App</argument>
             <argument>--add-modules javafx.graphics</argument>
           </arguments>
         </configuration>
@@ -119,5 +118,7 @@ address=127.0.0.1:8000
   </profiles>
   <modules>
     <module>Core</module>
+    <module>Bullet</module>
+    <module>Player</module>
   </modules>
 </project>
