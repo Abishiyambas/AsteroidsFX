@@ -1,2 +1,8 @@
+dk/sdu/cbse/spi/IEntityProcessingService.class
+dk/sdu/cbse/common/data/World.class
 module-info.class
+dk/sdu/cbse/spi/IPostEntityProcessingService.class
 dk/sdu/cbse/App.class
+dk/sdu/cbse/common/data/Entity.class
+dk/sdu/cbse/common/data/GameData.class
+dk/sdu/cbse/spi/IGamePlugin.class

@@ -120,5 +120,8 @@
     <module>Core</module>
     <module>Bullet</module>
     <module>Player</module>
+    <module>Enemy</module>
+    <module>Asteroids</module>
+    <module>Collision</module>
   </modules>
 </project>
