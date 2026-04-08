@@ -13,13 +13,14 @@ Random rng = new Random();
 int count = 5;
 for (int i = 0; i < count; i++) {
 
-Entity asteroid = new Entity();
+Entity asteroid = new Asteroid();
 asteroid.setId("asteroid" + i);
+double size = rng.nextInt(10) + 5;
+asteroid.setPolygonCoordinates(size, -size, -size, -size, -size, size, size, size);
 asteroid.setX(rng.nextDouble() * gameData.getDisplayWidth());
 asteroid.setY(rng.nextDouble() * gameData.getDisplayHeight());
-asteroid.setDx((rng.nextDouble() - 0.5) * 2);
-asteroid.setDy((rng.nextDouble() - 0.5) * 2);
-asteroid.setRadius(10+rng.nextDouble() * 10);
+asteroid.setRadius(size);
+asteroid.setRotation(rng.nextInt(90));
 
 world.addEntity(asteroid);
 }

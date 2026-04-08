@@ -11,7 +11,7 @@ public class PlayerPlugin implements IGamePlugin {
    
 public void start(GameData gameData, World world) {
     
-    Entity player = new Entity();
+    Entity player = new Player();
 
         // Set id
         player.setId("player");
@@ -24,8 +24,13 @@ public void start(GameData gameData, World world) {
         player.setDx(0);
         player.setDy(0);
 
-        // Radius (fixed or small range — here fixed)
-        player.setRadius(10);
+        // Shape and radius
+        player.setPolygonCoordinates(-5, -5, 10, 0, -5, 5);
+        player.setRadius(8);
+        // Health (hits to destroy)
+        player.setHealth(3);
+        // Owner id for friendly-fire checks
+        player.setOwnerId("player");
 
         // Add to world
         world.addEntity(player);
@@ -46,6 +51,4 @@ public void stop(GameData gameData, World world) {
     
 }
 }
-
-
 

@@ -9,6 +9,8 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.9</maven.compiler.source>
     <maven.compiler.target>1.9</maven.compiler.target>
+    <javafx.version>21.0.2</javafx.version>
+    <javafx.platform>mac-aarch64</javafx.platform>
   </properties>
   <dependencyManagement>
     <dependencies/>
@@ -44,7 +46,6 @@
           <arguments>
             <argument>--module-path=mods-mvn</argument>
             <argument>--class-path=libs/*</argument>
-            <argument>-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=127.0.0.1:8000</argument>
             <argument>--module=Core/dk.sdu.cbse.App</argument>
             <argument>--add-modules javafx.graphics</argument>
           </arguments>

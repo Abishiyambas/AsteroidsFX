@@ -1,3 +1,4 @@
-module-info.class
 dk/sdu/cbse/asteroids/AsteroidControlSystem.class
+module-info.class
+dk/sdu/cbse/asteroids/Asteroid.class
 dk/sdu/cbse/asteroids/AsteroidsPlugin.class

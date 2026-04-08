@@ -68,13 +68,11 @@ public class CollisionControlSystem implements IPostEntityProcessingService {
             return;
         }
         if (isShip(aId) && isBullet(bId)) {
-            markRemove(a, toRemove);
-            markRemove(b, toRemove);
+            handleShipBullet(a, b, toRemove);
             return;
         }
         if (isShip(bId) && isBullet(aId)) {
-            markRemove(a, toRemove);
-            markRemove(b, toRemove);
+            handleShipBullet(b, a, toRemove);
         }
     }
 
@@ -95,12 +93,8 @@ public class CollisionControlSystem implements IPostEntityProcessingService {
         a1.setId(asteroid.getId() + "_a");
         a2.setId(asteroid.getId() + "_b");
 
-        double dx = asteroid.getDx();
-        double dy = asteroid.getDy();
-        a1.setDx(-dy);
-        a1.setDy(dx);
-        a2.setDx(dy);
-        a2.setDy(-dx);
+        a1.setRotation(asteroid.getRotation() + 30);
+        a2.setRotation(asteroid.getRotation() - 30);
 
         toAdd.add(a1);
         toAdd.add(a2);
@@ -111,9 +105,8 @@ public class CollisionControlSystem implements IPostEntityProcessingService {
         e.setX(x);
         e.setY(y);
         e.setRadius(radius);
-        e.setDx(source.getDx());
-        e.setDy(source.getDy());
         e.setRotation(source.getRotation());
+        e.setPolygonCoordinates(radius, -radius, -radius, -radius, -radius, radius, radius, radius);
         return e;
     }
 
@@ -121,6 +114,25 @@ public class CollisionControlSystem implements IPostEntityProcessingService {
         if (!toRemove.contains(entity)) {
             toRemove.add(entity);
         }
+    }
+
+    private void handleShipBullet(Entity ship, Entity bullet, List<Entity> toRemove) {
+        if (isFriendlyFire(ship, bullet)) {
+            markRemove(bullet, toRemove);
+            return;
+        }
+        markRemove(bullet, toRemove);
+        int hp = ship.getHealth();
+        hp = hp - 1;
+        ship.setHealth(hp);
+        if (hp <= 0) {
+            markRemove(ship, toRemove);
+        }
+    }
+
+    private boolean isFriendlyFire(Entity ship, Entity bullet) {
+        String ownerId = bullet.getOwnerId();
+        return ownerId != null && !ownerId.isEmpty() && ownerId.equals(ship.getId());
     }
 
     private boolean isAsteroid(String id) {

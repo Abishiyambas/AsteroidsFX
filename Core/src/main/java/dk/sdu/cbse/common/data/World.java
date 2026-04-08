@@ -13,4 +13,16 @@ public void removeEntity(Entity entity) {
 public List<Entity> getEntities() {
     return entities;
 }
+
+public <E extends Entity> List<Entity> getEntities(Class<E>... entityTypes) {
+    List<Entity> result = new ArrayList<>();
+    for (Entity e : entities) {
+        for (Class<E> entityType : entityTypes) {
+            if (entityType.equals(e.getClass())) {
+                result.add(e);
+            }
+        }
+    }
+    return result;
+}
 }
