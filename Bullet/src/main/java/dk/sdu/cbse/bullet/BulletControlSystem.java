@@ -3,22 +3,18 @@ import dk.sdu.cbse.common.bullet.BulletSPI;
 import dk.sdu.cbse.common.data.Entity;
 import dk.sdu.cbse.common.data.GameData;
 import dk.sdu.cbse.common.data.World;
-import dk.sdu.cbse.spi.IEntityProcessingService;
+import dk.sdu.cbse.spi.IEntityProcessorService;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BulletControlSystem implements IEntityProcessingService, BulletSPI {
+public class BulletControlSystem implements IEntityProcessorService, BulletSPI {
 
     public void process(GameData gameData, World world) {
+        // Remove bullets that leave the screen.
         List<Entity> toRemove = new ArrayList<>();
-        double delta = gameData.getDelta();
-        double speed = 300;
-
         for (Entity bullet : world.getEntities(Bullet.class)) {
-            double changeX = Math.cos(Math.toRadians(bullet.getRotation())) * speed * delta;
-            double changeY = Math.sin(Math.toRadians(bullet.getRotation())) * speed * delta;
-            bullet.setX(bullet.getX() + changeX);
-            bullet.setY(bullet.getY() + changeY);
+            bullet.setX(bullet.getX() + bullet.getDx() * gameData.getDelta());
+            bullet.setY(bullet.getY() + bullet.getDy() * gameData.getDelta());
 
             if (bullet.getX() < 0 || bullet.getX() > gameData.getDisplayWidth()
                     || bullet.getY() < 0 || bullet.getY() > gameData.getDisplayHeight()) {
@@ -32,6 +28,7 @@ public class BulletControlSystem implements IEntityProcessingService, BulletSPI 
 
     @Override
     public Entity createBullet(Entity shooter, GameData gameData) {
+        // Build a bullet from the shooter position and direction.
         Entity bullet = new Bullet();
         bullet.setId("bullet" + System.nanoTime());
         bullet.setOwnerId(shooter.getId());
@@ -41,6 +38,8 @@ public class BulletControlSystem implements IEntityProcessingService, BulletSPI 
         bullet.setX(shooter.getX() + changeX * 10);
         bullet.setY(shooter.getY() + changeY * 10);
         bullet.setRotation(shooter.getRotation());
+        bullet.setDx(changeX * 300);
+        bullet.setDy(changeY * 300);
         bullet.setRadius(2);
         return bullet;
     }

@@ -1,16 +1,16 @@
 package dk.sdu.cbse.player;
-import dk.sdu.cbse.spi.IGamePlugin;
+
+import dk.sdu.cbse.common.data.Entity;
 import dk.sdu.cbse.common.data.GameData;
 import dk.sdu.cbse.common.data.World;
-import dk.sdu.cbse.common.data.Entity;
+import dk.sdu.cbse.spi.IGamePluginService;
 import java.util.ArrayList;
 import java.util.List;
 
-
-public class PlayerPlugin implements IGamePlugin {
+public class PlayerPlugin implements IGamePluginService {
    
 public void start(GameData gameData, World world) {
-    
+    // Create the player when the game starts.
     Entity player = new Player();
 
         // Set id
@@ -28,7 +28,7 @@ public void start(GameData gameData, World world) {
         player.setPolygonCoordinates(-5, -5, 10, 0, -5, 5);
         player.setRadius(8);
         // Health (hits to destroy)
-        player.setHealth(3);
+        player.setHealth(gameData.getMaxPlayerHealth());
         // Owner id for friendly-fire checks
         player.setOwnerId("player");
 
@@ -38,7 +38,7 @@ public void start(GameData gameData, World world) {
 } 
 
 public void stop(GameData gameData, World world) {
-
+    // Remove the player when the game stops.
     List<Entity> toRemove = new ArrayList<>();
      for (Entity e : world.getEntities()) {
             if ("player".equals(e.getId())) {
@@ -51,4 +51,3 @@ public void stop(GameData gameData, World world) {
     
 }
 }
-

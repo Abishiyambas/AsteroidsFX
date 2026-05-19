@@ -7,10 +7,10 @@
   <name>AsteroidsFX</name>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.9</maven.compiler.source>
-    <maven.compiler.target>1.9</maven.compiler.target>
+    <maven.compiler.release>17</maven.compiler.release>
     <javafx.version>21.0.2</javafx.version>
     <javafx.platform>mac-aarch64</javafx.platform>
+    <junit.version>5.10.2</junit.version>
   </properties>
   <dependencyManagement>
     <dependencies/>
@@ -72,6 +72,9 @@
                   <directory>mods-mvn</directory>
                 </fileset>
                 <fileset>
+                  <directory>plugins</directory>
+                </fileset>
+                <fileset>
                   <directory>libs</directory>
                 </fileset>
               </filesets>
@@ -94,8 +97,8 @@
             <version>3.0.2</version>
             <executions>
               <execution>
-                <id>copy-installed</id>
-                <phase>install</phase>
+                <id>copy-packaged-module</id>
+                <phase>package</phase>
                 <goals>
                   <goal>copy</goal>
                 </goals>

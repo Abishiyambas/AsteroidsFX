@@ -3,14 +3,15 @@ package dk.sdu.cbse.collision;
 import dk.sdu.cbse.common.data.Entity;
 import dk.sdu.cbse.common.data.GameData;
 import dk.sdu.cbse.common.data.World;
-import dk.sdu.cbse.spi.IPostEntityProcessingService;
+import dk.sdu.cbse.spi.IPostEntityProcessorService;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CollisionControlSystem implements IPostEntityProcessingService {
+public class CollisionControlSystem implements IPostEntityProcessorService {
 
 
     public void process(GameData gameData, World world) {
+        // Copy entities so we can safely remove/add later.
         List<Entity> entities = new ArrayList<>(world.getEntities());
         List<Entity> toRemove = new ArrayList<>();
         List<Entity> toAdd = new ArrayList<>();
@@ -25,10 +26,14 @@ public class CollisionControlSystem implements IPostEntityProcessingService {
                 if (b.getId() == null) {
                     continue;
                 }
+                if (toRemove.contains(a) || toRemove.contains(b)) {
+                    continue;
+                }
                 if (!collides(a, b)) {
                     continue;
                 }
-                handleCollision(a, b, toRemove, toAdd);
+                // Handle the collision rules.
+                handleCollision(gameData, a, b, toRemove, toAdd);
             }
         }
 
@@ -41,22 +46,24 @@ public class CollisionControlSystem implements IPostEntityProcessingService {
     }
 
     private boolean collides(Entity a, Entity b) {
+        // Pythagoras: distance between centers vs. sum of radii.
         double dx = a.getX() - b.getX();
         double dy = a.getY() - b.getY();
         double radius = a.getRadius() + b.getRadius();
         return (dx * dx + dy * dy) <= (radius * radius);
     }
 
-    private void handleCollision(Entity a, Entity b, List<Entity> toRemove, List<Entity> toAdd) {
+    private void handleCollision(GameData gameData, Entity a, Entity b, List<Entity> toRemove, List<Entity> toAdd) {
         String aId = a.getId();
         String bId = b.getId();
 
+        // Bullet hits asteroid.
         if (isBullet(aId) && isAsteroid(bId)) {
-            handleBulletAsteroid(a, b, toRemove, toAdd);
+            handleBulletAsteroid(gameData, a, b, toRemove, toAdd);
             return;
         }
         if (isBullet(bId) && isAsteroid(aId)) {
-            handleBulletAsteroid(b, a, toRemove, toAdd);
+            handleBulletAsteroid(gameData, b, a, toRemove, toAdd);
             return;
         }
         if (isShip(aId) && isAsteroid(bId)) {
@@ -76,11 +83,15 @@ public class CollisionControlSystem implements IPostEntityProcessingService {
         }
     }
 
-    private void handleBulletAsteroid(Entity bullet, Entity asteroid, List<Entity> toRemove, List<Entity> toAdd) {
+    private void handleBulletAsteroid(GameData gameData, Entity bullet, Entity asteroid,
+            List<Entity> toRemove, List<Entity> toAdd) {
+        // Bullet is always removed.
         markRemove(bullet, toRemove);
+        gameData.registerAsteroidDestroyed();
 
         double radius = asteroid.getRadius();
         if (radius <= 8) {
+            // Small asteroids disappear.
             markRemove(asteroid, toRemove);
             return;
         }
@@ -101,6 +112,7 @@ public class CollisionControlSystem implements IPostEntityProcessingService {
     }
 
     private Entity cloneAsteroid(Entity source, double x, double y, double radius) {
+        // Copy an asteroid with smaller size.
         Entity e = new Entity();
         e.setX(x);
         e.setY(y);
@@ -111,16 +123,19 @@ public class CollisionControlSystem implements IPostEntityProcessingService {
     }
 
     private void markRemove(Entity entity, List<Entity> toRemove) {
+        // Avoid duplicates in remove list.
         if (!toRemove.contains(entity)) {
             toRemove.add(entity);
         }
     }
 
     private void handleShipBullet(Entity ship, Entity bullet, List<Entity> toRemove) {
+        // Ignore friendly fire (but remove the bullet).
         if (isFriendlyFire(ship, bullet)) {
             markRemove(bullet, toRemove);
             return;
         }
+        // Enemy bullet hits ship.
         markRemove(bullet, toRemove);
         int hp = ship.getHealth();
         hp = hp - 1;
@@ -131,6 +146,7 @@ public class CollisionControlSystem implements IPostEntityProcessingService {
     }
 
     private boolean isFriendlyFire(Entity ship, Entity bullet) {
+        // Same owner means friendly fire.
         String ownerId = bullet.getOwnerId();
         return ownerId != null && !ownerId.isEmpty() && ownerId.equals(ship.getId());
     }
@@ -145,5 +161,9 @@ public class CollisionControlSystem implements IPostEntityProcessingService {
 
     private boolean isShip(String id) {
         return id.startsWith("player") || id.startsWith("enemy");
+    }
+
+    private boolean isPlayer(String id) {
+        return id.startsWith("player");
     }
 }

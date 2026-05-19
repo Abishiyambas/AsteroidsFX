@@ -1,15 +1,23 @@
 package dk.sdu.cbse.common.data;
 
 public class Entity {
+    // A simple game object (player, enemy, bullet, asteroid).
     private String id;
+    // Who made this (used for bullets and friendly fire).
     private String ownerId = "";
+    // Shape points for drawing (x1,y1,x2,y2,...).
     private double[] polygonCoordinates;
+    // Position.
    private double x;
    private double y;
+    // Movement speed (not always used).
     private double dx;
     private double dy;
+    // Direction the entity is facing (in degrees).
     private double rotation;
+    // Size for collisions.
     private double radius;
+    // How many hits it can take before it is removed.
     private int health = 1;
 
     public String getId() {
