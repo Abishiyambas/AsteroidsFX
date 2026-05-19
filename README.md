@@ -12,6 +12,10 @@ Modulopdelt CBSE/JPMS-udgave af Asteroids bygget som et Maven multi-module proje
 - `Collision`: post-processor til kollisionshåndtering.
 - `til cbse eksamen`: kursusmateriale, labs og eksamensnoter.
 
+## Repository Note
+
+Dette repository fungerer som hovedprojekt for AsteroidsFX og samler samtidig det relevante laboratoriearbejde, der ligger til grund for den endelige CBSE-løsning.
+
 ## CBSE/JPMS-emner dækket i projektet
 
 - Komponentopdeling med løst koblede moduler.
