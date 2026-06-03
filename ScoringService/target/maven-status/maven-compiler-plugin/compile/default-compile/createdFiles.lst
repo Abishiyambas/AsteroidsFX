@@ -1,0 +1,7 @@
+dk/sdu/cbse/scoringservice/ScoreBoardResponse.class
+dk/sdu/cbse/scoringservice/ScoringServiceApplication.class
+dk/sdu/cbse/scoringservice/ScoreSubmission.class
+dk/sdu/cbse/scoringservice/ScoreFileData.class
+dk/sdu/cbse/scoringservice/ScoreController.class
+dk/sdu/cbse/scoringservice/ScoreStoreService.class
+dk/sdu/cbse/scoringservice/HighScoreResponse.class

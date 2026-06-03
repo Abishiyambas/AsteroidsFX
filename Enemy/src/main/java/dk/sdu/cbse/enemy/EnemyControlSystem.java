@@ -102,22 +102,22 @@ public class EnemyControlSystem implements IEntityProcessorService {
     private double getVerticalSpeed(int level) {
         switch (level) {
             case 2:
-                return 34;
+                return 60;
             case 3:
-                return 46;
+                return 80;
             default:
-                return 24;
+                return 45;
         }
     }
 
     private double getHorizontalSpeed(int level) {
         switch (level) {
             case 2:
-                return 72;
+                return 120;
             case 3:
-                return 104;
+                return 170;
             default:
-                return 48;
+                return 90;
         }
     }
 

@@ -21,6 +21,7 @@ public class EnemyPlugin implements IGamePluginService {
         enemy.setHealth(3);
         enemy.setOwnerId("enemy");
         world.addEntity(enemy);
+
     }
 
     public void stop(GameData gameData, World world) {

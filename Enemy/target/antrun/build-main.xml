@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="maven-antrun-" default="main">
   <target name="main">
-    <mkdir dir="/Users/abishiyambaskaran/Desktop/Projekter/CBSE-projekt/AsteroidsFX/Enemy/../plugins" />
-    <copy file="/Users/abishiyambaskaran/Desktop/Projekter/CBSE-projekt/AsteroidsFX/Enemy/target/Enemy-1.0-SNAPSHOT.jar" tofile="/Users/abishiyambaskaran/Desktop/Projekter/CBSE-projekt/AsteroidsFX/Enemy/../plugins/Enemy-1.0-SNAPSHOT.jar" overwrite="true" />
+    <mkdir dir="/Users/abishiyambaskaran/Desktop/til aflevering/AsteroidsFX/Enemy/../plugins" />
+    <copy file="/Users/abishiyambaskaran/Desktop/til aflevering/AsteroidsFX/Enemy/target/Enemy-1.0-SNAPSHOT.jar" tofile="/Users/abishiyambaskaran/Desktop/til aflevering/AsteroidsFX/Enemy/../plugins/Enemy-1.0-SNAPSHOT.jar" overwrite="true" />
   </target>
 </project>

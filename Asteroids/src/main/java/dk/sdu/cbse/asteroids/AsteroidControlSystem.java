@@ -76,22 +76,22 @@ public class AsteroidControlSystem implements IEntityProcessorService {
     private int getMinimumAsteroids(int level) {
         switch (level) {
             case 2:
-                return 6;
+                return 10;
             case 3:
-                return 8;
+                return 12;
             default:
-                return 4;
+                return 8;
         }
     }
 
     private double getSpawnInterval(int level) {
         switch (level) {
             case 2:
-                return 1.15;
+                return 0.6;
             case 3:
-                return 0.75;
+                return 0.4;
             default:
-                return 1.7;
+                return 0.8;
         }
     }
 

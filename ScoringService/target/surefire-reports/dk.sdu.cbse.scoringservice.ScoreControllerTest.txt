@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: dk.sdu.cbse.scoringservice.ScoreControllerTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.579 s -- in dk.sdu.cbse.scoringservice.ScoreControllerTest

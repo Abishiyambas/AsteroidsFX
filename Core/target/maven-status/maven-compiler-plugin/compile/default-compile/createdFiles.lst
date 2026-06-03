@@ -1,7 +1,13 @@
+dk/sdu/cbse/PluginServiceRegistry.class
 dk/sdu/cbse/spi/IEntityProcessingService.class
+dk/sdu/cbse/ScoringClient.class
 dk/sdu/cbse/spi/IEntityProcessorService.class
+dk/sdu/cbse/Game$1.class
+dk/sdu/cbse/HighScoreResponse.class
+dk/sdu/cbse/Game.class
 dk/sdu/cbse/common/data/GameKeys.class
 dk/sdu/cbse/common/bullet/BulletSPI.class
+dk/sdu/cbse/ScoreBoardResponse.class
 dk/sdu/cbse/common/data/World.class
 module-info.class
 dk/sdu/cbse/spi/IPostEntityProcessingService.class
@@ -10,5 +16,6 @@ dk/sdu/cbse/common/data/Entity.class
 dk/sdu/cbse/common/data/GameData.class
 dk/sdu/cbse/spi/IGamePluginService.class
 dk/sdu/cbse/spi/IPostEntityProcessorService.class
-dk/sdu/cbse/App$1.class
+dk/sdu/cbse/ScoreSubmission.class
 dk/sdu/cbse/spi/IGamePlugin.class
+dk/sdu/cbse/CoreSpringConfig.class

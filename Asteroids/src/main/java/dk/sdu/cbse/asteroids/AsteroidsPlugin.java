@@ -13,7 +13,7 @@ public void start(GameData gameData, World world) {
 
 // Create a few asteroids at the start.
 Random rng = new Random();
-int count = 5;
+    int count = 8;
 for (int i = 0; i < count; i++) {
 
 Entity asteroid = new Asteroid();
